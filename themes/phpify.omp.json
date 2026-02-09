@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#BBBBBB",
+          "properties": {
+            "style": "full",
+            "folder_separator_icon": "\\",
+            "home_icon": "~"
+          },
+          "style": "plain",
+          "template": "{{ if .Segments.Git.RepoName }}<#CC7832>use</> {{ .Segments.Git.RepoName }}{{ if .Segments.Git.RelativeDir }}\\{{ .Segments.Git.RelativeDir | replace \"/\" \"\\\\\" }}{{ end }} {{ else }}{{ .Path }} {{ end }}",
+          "type": "path"
+        },
+        {
+          "foreground": "#CC7832",
+          "properties": {
+            "branch_icon": "",
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "style": "plain",
+          "template": "<#9876AA>$git</><#A9B7C6>-></>{{ if gt (len .HEAD) 20 }}{{ trunc 20 .HEAD }}...{{ else }}{{ .HEAD }}{{ end }}{{ if hasSuffix \"-staging\" .HEAD }} <#FFC66D>[staging]</>{{ end }}{{ if .Behind }} <#6897BB>↓</>{{ .Behind }}{{ end }}{{ if .Ahead }} <#6A8759>↑</>{{ .Ahead }}{{ end }}",
+          "type": "git"
+        },
+        {
+          "foreground": "#FF6B68",
+          "style": "plain",
+          "template": " \uf119",
+          "type": "status"
+        },
+        {
+          "foreground": "#6897BB",
+          "properties": {
+            "time_format": "15:04"
+          },
+          "style": "plain",
+          "template": " {{ .CurrentDate | date .Format }} ",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 3
+}
