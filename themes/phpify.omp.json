@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "final_space": true,
   "blocks": [
     {
       "alignment": "left",
@@ -8,11 +9,10 @@
           "foreground": "#BBBBBB",
           "properties": {
             "style": "full",
-            "folder_separator_icon": "\\",
             "home_icon": "~"
           },
           "style": "plain",
-          "template": "{{ if .Segments.Git.RepoName }}<#CC7832>use</> {{ .Segments.Git.RepoName }}{{ if .Segments.Git.RelativeDir }}\\{{ .Segments.Git.RelativeDir | replace \"/\" \"\\\\\" }}{{ end }} {{ else }}{{ .Path }} {{ end }}",
+          "template": "{{ if .Segments.Git.RepoName }}<#CC7832>use</> {{ .Segments.Git.RepoName }}{{ if .Segments.Git.RelativeDir }}\\{{ .Segments.Git.RelativeDir | replace \"/\" \"\\\\\" }}{{ end }}<#CC7832>;</> {{ else }}<#9876AA>${{ .Env.USER }}</> {{ .Path }}{{ end }}",
           "type": "path"
         },
         {
@@ -23,7 +23,7 @@
             "fetch_upstream_icon": true
           },
           "style": "plain",
-          "template": "<#9876AA>$git</><#A9B7C6>-></>{{ if gt (len .HEAD) 20 }}{{ trunc 20 .HEAD }}...{{ else }}{{ .HEAD }}{{ end }}{{ if hasSuffix \"-staging\" .HEAD }} <#FFC66D>[staging]</>{{ end }}{{ if .Behind }} <#6897BB>↓</>{{ .Behind }}{{ end }}{{ if .Ahead }} <#6A8759>↑</>{{ .Ahead }}{{ end }}",
+          "template": "<#9876AA>$git</><#A9B7C6>-></>{{ if gt (len .HEAD) 25 }}{{ trunc 25 .HEAD }}...{{ else }}{{ .HEAD }}{{ end }}{{ if hasSuffix \"-staging\" .HEAD }} <#FFC66D>[staging]</>{{ end }}{{ if .Behind }} <#6897BB>↓</>{{ .Behind }}{{ end }}{{ if .Ahead }} <#6A8759>↑</>{{ .Ahead }}{{ end }}",
           "type": "git"
         },
         {
@@ -31,18 +31,39 @@
           "style": "plain",
           "template": " \uf119",
           "type": "status"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "segments": [
+        {
+          "foreground": "#808080",
+          "style": "plain",
+          "template": "// ",
+          "type": "text"
         },
         {
-          "foreground": "#6897BB",
+          "foreground": "#808080",
+          "properties": {
+            "threshold": 0,
+            "style": "austin"
+          },
+          "style": "plain",
+          "template": "{{ .FormattedMs }}; ",
+          "type": "executiontime"
+        },
+        {
+          "foreground": "#808080",
           "properties": {
             "time_format": "15:04"
           },
           "style": "plain",
-          "template": " {{ .CurrentDate | date .Format }} ",
+          "template": "{{ .CurrentDate | date .Format }}",
           "type": "time"
         }
       ],
-      "type": "prompt"
+      "type": "rprompt"
     }
   ],
   "version": 3
